@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MoneyTrack</string>
+
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_transactions">Giao dịch</string>
+    <string name="nav_budget">Ngân sách</string>
+    <string name="nav_investment">Đầu tư</string>
+    <string name="nav_reminders">Nhắc nhở</string>
+    <string name="nav_reports">Báo cáo</string>
+    <string name="nav_settings">Cài đặt</string>
+
+    <string name="home_greeting">Chào, %1$s 👋</string>
+    <string name="home_total_balance">Tổng tài sản</string>
+    <string name="home_income_month">Thu nhập</string>
+    <string name="home_expense_month">Chi tiêu</string>
+    <string name="home_add_income">+ Thu nhập</string>
+    <string name="home_add_expense">+ Chi tiêu</string>
+    <string name="home_transfer">Chuyển tiền</string>
+    <string name="home_upcoming">Sắp đến hạn</string>
+    <string name="home_recent">Giao dịch gần đây</string>
+    <string name="home_see_all">Xem tất cả</string>
+    <string name="home_budget_overview">Ngân sách</string>
+
+    <string name="txn_all">Tất cả</string>
+    <string name="txn_income">Thu</string>
+    <string name="txn_expense">Chi</string>
+    <string name="txn_search">Tìm kiếm…</string>
+    <string name="txn_today">Hôm nay</string>
+    <string name="txn_yesterday">Hôm qua</string>
+    <string name="txn_recurring">Định kỳ</string>
+    <string name="txn_delete">Xóa</string>
+    <string name="txn_next_date">Lần tới: %1$s</string>
+    <string name="txn_empty">Chưa có giao dịch</string>
+    <string name="txn_transfer">Chuyển tiền</string>
+
+    <string name="budget_total">Tổng ngân sách</string>
+    <string name="budget_used">Đã dùng</string>
+    <string name="budget_left">Còn lại</string>
+    <string name="budget_warning">⚠️ %1$s đã dùng %2$d%% ngân sách</string>
+    <string name="budget_create">+ Tạo ngân sách</string>
+    <string name="budget_goals">Mục tiêu tiết kiệm</string>
+    <string name="budget_goal_create">+ Tạo mục tiêu</string>
+    <string name="budget_goal_add">+ Nạp tiền</string>
+    <string name="budget_limit">Hạn mức</string>
+    <string name="budget_name">Tên</string>
+    <string name="budget_target">Mục tiêu</string>
+
+    <string name="invest_total">Giá trị danh mục</string>
+    <string name="invest_stock">Cổ phiếu</string>
+    <string name="invest_gold">Vàng</string>
+    <string name="invest_crypto">Crypto</string>
+    <string name="invest_savings">Tiết kiệm</string>
+    <string name="invest_add">+ Thêm tài sản</string>
+    <string name="invest_qty">SL</string>
+    <string name="invest_cost">Giá vốn</string>
+    <string name="invest_price">Giá</string>
+    <string name="invest_empty">Chưa có tài sản</string>
+
+    <string name="rem_bills">Hóa đơn định kỳ</string>
+    <string name="rem_debts">Nợ vay</string>
+    <string name="rem_paid">Đã trả</string>
+    <string name="rem_unpaid">Chưa trả</string>
+    <string name="rem_overdue">Quá hạn</string>
+    <string name="rem_mark_paid">Đánh dấu đã trả</string>
+    <string name="rem_due_day">Hạn %1$s</string>
+    <string name="rem_add">+ Thêm nhắc nhở</string>
+    <string name="rem_lend">Cho vay</string>
+    <string name="rem_borrow">Đi vay</string>
+    <string name="rem_record_payment">+ Ghi nhận trả</string>
+    <string name="rem_empty">Trống</string>
+    <string name="notif_channel">Nhắc nhở đến hạn</string>
+    <string name="notif_due_title">%1$d nhắc nhở sắp đến hạn</string>
+
+    <string name="rep_week">Tuần</string>
+    <string name="rep_month">Tháng</string>
+    <string name="rep_year">Năm</string>
+    <string name="rep_income_vs_expense">Thu vs chi</string>
+    <string name="rep_by_category">Chi theo danh mục</string>
+    <string name="rep_savings">Tiết kiệm lũy kế</string>
+    <string name="rep_compare">So với kỳ trước</string>
+    <string name="rep_savings_label">Tiết kiệm</string>
+
+    <string name="set_language">Ngôn ngữ</string>
+    <string name="set_theme">Giao diện</string>
+    <string name="set_theme_light">Sáng</string>
+    <string name="set_theme_dark">Tối</string>
+    <string name="set_theme_system">Theo hệ thống</string>
+    <string name="set_security">Bảo mật</string>
+    <string name="set_pin">Khóa PIN</string>
+    <string name="set_pin_change">Đổi PIN</string>
+    <string name="set_biometric">Mở khóa vân tay</string>
+    <string name="set_block_screenshot">Chặn chụp màn hình</string>
+    <string name="set_hide_balance">Ẩn số dư</string>
+
+    <string name="qa_income">Thu</string>
+    <string name="qa_expense">Chi</string>
+    <string name="qa_transfer">Chuyển</string>
+    <string name="qa_category">Danh mục</string>
+    <string name="qa_wallet">Ví</string>
+    <string name="qa_to_wallet">Đến ví</string>
+    <string name="qa_note">Ghi chú</string>
+    <string name="qa_repeat">🔁 Lặp lại định kỳ</string>
+    <string name="qa_monthly_day">Hàng tháng ngày %1$d</string>
+    <string name="qa_save">Lưu</string>
+    <string name="qa_saved">Đã lưu</string>
+
+    <string name="lock_enter_pin">Nhập mã PIN</string>
+    <string name="lock_set_pin">Đặt mã PIN 6 số</string>
+    <string name="lock_confirm_pin">Nhập lại PIN</string>
+    <string name="lock_wrong">Sai PIN</string>
+    <string name="lock_too_many">Sai quá nhiều. Chờ %1$d giây</string>
+    <string name="lock_biometric_title">Mở khóa MoneyTrack</string>
+
+    <string name="cancel">Hủy</string>
+    <string name="ok">OK</string>
+    <string name="amount">Số tiền</string>
+</resources>

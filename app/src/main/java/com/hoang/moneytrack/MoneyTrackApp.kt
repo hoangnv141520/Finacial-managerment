@@ -1,0 +1,20 @@
+package com.hoang.moneytrack
+
+import android.app.Application
+import com.hoang.moneytrack.data.FinanceRepository
+import com.hoang.moneytrack.data.db.AppDatabase
+import com.hoang.moneytrack.data.prefs.SettingsStore
+import com.hoang.moneytrack.data.security.DbKeyManager
+import com.hoang.moneytrack.work.Workers
+
+// ponytail: manual singletons instead of Hilt — 4 objects don't need a DI framework
+class MoneyTrackApp : Application() {
+    val settings by lazy { SettingsStore(this) }
+    val keys by lazy { DbKeyManager(this) }
+    val repo by lazy { FinanceRepository(AppDatabase.get(this)) }
+
+    override fun onCreate() {
+        super.onCreate()
+        Workers.scheduleDaily(this)
+    }
+}

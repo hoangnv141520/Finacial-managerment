@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MoneyTrack</string>
+
+    <!-- nav -->
+    <string name="nav_home">Home</string>
+    <string name="nav_transactions">Transactions</string>
+    <string name="nav_budget">Budget</string>
+    <string name="nav_investment">Invest</string>
+    <string name="nav_reminders">Reminders</string>
+    <string name="nav_reports">Reports</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- home -->
+    <string name="home_greeting">Hello, %1$s 👋</string>
+    <string name="home_total_balance">Total balance</string>
+    <string name="home_income_month">Income</string>
+    <string name="home_expense_month">Expense</string>
+    <string name="home_add_income">+ Income</string>
+    <string name="home_add_expense">+ Expense</string>
+    <string name="home_transfer">Transfer</string>
+    <string name="home_upcoming">Upcoming</string>
+    <string name="home_recent">Recent transactions</string>
+    <string name="home_see_all">See all</string>
+    <string name="home_budget_overview">Budget</string>
+
+    <!-- transactions -->
+    <string name="txn_all">All</string>
+    <string name="txn_income">Income</string>
+    <string name="txn_expense">Expense</string>
+    <string name="txn_search">Search…</string>
+    <string name="txn_today">Today</string>
+    <string name="txn_yesterday">Yesterday</string>
+    <string name="txn_recurring">Recurring</string>
+    <string name="txn_delete">Delete</string>
+    <string name="txn_next_date">Next: %1$s</string>
+    <string name="txn_empty">No transactions</string>
+    <string name="txn_transfer">Transfer</string>
+
+    <!-- budget -->
+    <string name="budget_total">Total budget</string>
+    <string name="budget_used">Used</string>
+    <string name="budget_left">Left</string>
+    <string name="budget_warning">⚠️ %1$s used %2$d%% of budget</string>
+    <string name="budget_create">+ New budget</string>
+    <string name="budget_goals">Saving goals</string>
+    <string name="budget_goal_create">+ New goal</string>
+    <string name="budget_goal_add">+ Deposit</string>
+    <string name="budget_limit">Limit</string>
+    <string name="budget_name">Name</string>
+    <string name="budget_target">Target</string>
+
+    <!-- investment -->
+    <string name="invest_total">Portfolio value</string>
+    <string name="invest_stock">Stocks</string>
+    <string name="invest_gold">Gold</string>
+    <string name="invest_crypto">Crypto</string>
+    <string name="invest_savings">Savings</string>
+    <string name="invest_add">+ Add asset</string>
+    <string name="invest_qty">Qty</string>
+    <string name="invest_cost">Cost</string>
+    <string name="invest_price">Price</string>
+    <string name="invest_empty">No assets yet</string>
+
+    <!-- reminders -->
+    <string name="rem_bills">Bills</string>
+    <string name="rem_debts">Debts</string>
+    <string name="rem_paid">Paid</string>
+    <string name="rem_unpaid">Unpaid</string>
+    <string name="rem_overdue">Overdue</string>
+    <string name="rem_mark_paid">Mark paid</string>
+    <string name="rem_due_day">Due %1$s</string>
+    <string name="rem_add">+ New reminder</string>
+    <string name="rem_lend">Lent</string>
+    <string name="rem_borrow">Borrowed</string>
+    <string name="rem_record_payment">+ Payment</string>
+    <string name="rem_empty">Nothing here</string>
+    <string name="notif_channel">Due reminders</string>
+    <string name="notif_due_title">%1$d reminder(s) due soon</string>
+
+    <!-- reports -->
+    <string name="rep_week">Week</string>
+    <string name="rep_month">Month</string>
+    <string name="rep_year">Year</string>
+    <string name="rep_income_vs_expense">Income vs expense</string>
+    <string name="rep_by_category">Expense by category</string>
+    <string name="rep_savings">Cumulative savings</string>
+    <string name="rep_compare">vs previous period</string>
+    <string name="rep_savings_label">Savings</string>
+
+    <!-- settings -->
+    <string name="set_language">Language</string>
+    <string name="set_theme">Theme</string>
+    <string name="set_theme_light">Light</string>
+    <string name="set_theme_dark">Dark</string>
+    <string name="set_theme_system">System</string>
+    <string name="set_security">Security</string>
+    <string name="set_pin">PIN lock</string>
+    <string name="set_pin_change">Change PIN</string>
+    <string name="set_biometric">Fingerprint unlock</string>
+    <string name="set_block_screenshot">Block screenshots</string>
+    <string name="set_hide_balance">Hide balances</string>
+
+    <!-- quick add -->
+    <string name="qa_income">Income</string>
+    <string name="qa_expense">Expense</string>
+    <string name="qa_transfer">Transfer</string>
+    <string name="qa_category">Category</string>
+    <string name="qa_wallet">Wallet</string>
+    <string name="qa_to_wallet">To wallet</string>
+    <string name="qa_note">Note</string>
+    <string name="qa_repeat">🔁 Repeat</string>
+    <string name="qa_monthly_day">Monthly on day %1$d</string>
+    <string name="qa_save">Save</string>
+    <string name="qa_saved">Saved</string>
+
+    <!-- lock -->
+    <string name="lock_enter_pin">Enter PIN</string>
+    <string name="lock_set_pin">Set a 6-digit PIN</string>
+    <string name="lock_confirm_pin">Confirm PIN</string>
+    <string name="lock_wrong">Wrong PIN</string>
+    <string name="lock_too_many">Too many attempts. Wait %1$d s</string>
+    <string name="lock_biometric_title">Unlock MoneyTrack</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="amount">Amount</string>
+</resources>
