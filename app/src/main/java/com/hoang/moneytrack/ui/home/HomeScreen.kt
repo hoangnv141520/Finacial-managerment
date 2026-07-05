@@ -26,6 +26,8 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -34,8 +36,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import com.hoang.moneytrack.MoneyTrackApp
 import com.hoang.moneytrack.R
 import com.hoang.moneytrack.data.db.TxnType
+import com.hoang.moneytrack.ui.common.AddWalletForm
 import com.hoang.moneytrack.ui.common.EmojiBadge
 import com.hoang.moneytrack.ui.common.TieredProgressBar
 import com.hoang.moneytrack.ui.common.toVnd
@@ -55,6 +60,7 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     app: MoneyTrackApp,
@@ -76,6 +82,7 @@ fun HomeScreen(
         .collectAsState(emptyList())
     val hide = LocalHideBalance.current
     val scope = rememberCoroutineScope()
+    var addingWallet by remember { mutableStateOf(false) }
 
     fun money(v: Long) = if (hide) "••••••" else v.toVnd()
 
@@ -161,6 +168,18 @@ fun HomeScreen(
                         }
                     }
                 }
+                item {
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                        modifier = Modifier.clickable { addingWallet = true },
+                    ) {
+                        Column(
+                            Modifier.padding(14.dp).width(60.dp).height(64.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) { Text("+", style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary) }
+                    }
+                }
             }
         }
 
@@ -229,6 +248,10 @@ fun HomeScreen(
             }
         }
         item { Spacer(Modifier.height(8.dp)) }
+    }
+
+    if (addingWallet) ModalBottomSheet(onDismissRequest = { addingWallet = false }) {
+        AddWalletForm(app) { addingWallet = false }
     }
 }
 

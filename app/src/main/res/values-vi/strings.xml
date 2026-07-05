@@ -112,6 +112,13 @@
     <string name="lock_too_many">Sai quá nhiều. Chờ %1$d giây</string>
     <string name="lock_biometric_title">Mở khóa MoneyTrack</string>
 
+    <string name="wallet_add">Thêm ví</string>
+    <string name="wallet_cash">Tiền mặt</string>
+    <string name="wallet_bank">Ngân hàng</string>
+    <string name="wallet_ewallet">Ví điện tử</string>
+    <string name="wallet_initial_balance">Số dư ban đầu</string>
+    <string name="category_add">Thêm danh mục</string>
+
     <string name="cancel">Hủy</string>
     <string name="ok">OK</string>
     <string name="amount">Số tiền</string>

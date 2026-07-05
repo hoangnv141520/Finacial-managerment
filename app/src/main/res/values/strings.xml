@@ -122,6 +122,13 @@
     <string name="lock_too_many">Too many attempts. Wait %1$d s</string>
     <string name="lock_biometric_title">Unlock MoneyTrack</string>
 
+    <string name="wallet_add">New wallet</string>
+    <string name="wallet_cash">Cash</string>
+    <string name="wallet_bank">Bank</string>
+    <string name="wallet_ewallet">E-wallet</string>
+    <string name="wallet_initial_balance">Initial balance</string>
+    <string name="category_add">New category</string>
+
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="amount">Amount</string>

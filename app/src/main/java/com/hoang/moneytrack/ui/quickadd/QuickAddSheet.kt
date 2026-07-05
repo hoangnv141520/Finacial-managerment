@@ -43,6 +43,8 @@ import com.hoang.moneytrack.data.db.RecurUnit
 import com.hoang.moneytrack.data.db.Recurring
 import com.hoang.moneytrack.data.db.Txn
 import com.hoang.moneytrack.data.db.TxnType
+import androidx.compose.material3.ModalBottomSheet
+import com.hoang.moneytrack.ui.common.AddCategoryForm
 import com.hoang.moneytrack.ui.common.toVnd
 import com.hoang.moneytrack.ui.theme.MoneyStyle
 import kotlinx.coroutines.launch
@@ -59,6 +61,7 @@ fun QuickAddSheet(app: MoneyTrackApp, preset: TxnType, onDone: () -> Unit) {
     var toWalletId by remember { mutableStateOf<Long?>(null) }
     var repeat by remember { mutableStateOf(false) }
     var repeatDay by remember { mutableIntStateOf(LocalDate.now().dayOfMonth.coerceAtMost(28)) }
+    var addingCategory by remember { mutableStateOf(false) }
 
     val categories by app.repo.dao.categories().collectAsState(emptyList())
     val wallets by app.repo.dao.wallets().collectAsState(emptyList())
@@ -109,6 +112,7 @@ fun QuickAddSheet(app: MoneyTrackApp, preset: TxnType, onDone: () -> Unit) {
                     val c = visibleCategories[i]
                     FilterChip(categoryId == c.id, { categoryId = c.id }, { Text("${c.emoji} ${c.name}") })
                 }
+                item { FilterChip(false, { addingCategory = true }, { Text("+") }) }
             }
         }
 
@@ -179,6 +183,10 @@ fun QuickAddSheet(app: MoneyTrackApp, preset: TxnType, onDone: () -> Unit) {
             modifier = Modifier.fillMaxWidth(),
         ) { Text(stringResource(R.string.qa_save)) }
         Spacer(Modifier.height(24.dp))
+    }
+
+    if (addingCategory) ModalBottomSheet(onDismissRequest = { addingCategory = false }) {
+        AddCategoryForm(app, type) { addingCategory = false }
     }
 }
 
