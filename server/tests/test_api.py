@@ -31,9 +31,10 @@ async def test_auth_flow(client):
     r = await client.post("/auth/register", json={"email": "a@b.com", "password": "x"})
     assert r.status_code == 409
 
-    # login ok
+    # login ok (rotates refresh — register's refresh is now revoked)
     r = await client.post("/auth/login", json={"email": "a@b.com", "password": "secret123"})
     assert r.status_code == 200
+    tokens = r.json()
 
     # login wrong password
     r = await client.post("/auth/login", json={"email": "a@b.com", "password": "nope"})

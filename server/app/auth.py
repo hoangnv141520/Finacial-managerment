@@ -1,4 +1,5 @@
 import time
+import uuid
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 
@@ -49,7 +50,8 @@ class RefreshBody(BaseModel):
 
 def _make_token(user_id: int, kind: str, ttl: timedelta) -> str:
     return jwt.encode(
-        {"sub": str(user_id), "kind": kind, "exp": datetime.now(timezone.utc) + ttl},
+        # jti makes every token unique — exp alone has 1s granularity, which broke rotation checks
+        {"sub": str(user_id), "kind": kind, "jti": uuid.uuid4().hex, "exp": datetime.now(timezone.utc) + ttl},
         settings.jwt_secret,
         algorithm="HS256",
     )
