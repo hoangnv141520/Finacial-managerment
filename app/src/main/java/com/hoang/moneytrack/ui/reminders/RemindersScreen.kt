@@ -1,5 +1,6 @@
 package com.hoang.moneytrack.ui.reminders
 
+import com.hoang.moneytrack.ui.common.ThousandsVisualTransformation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -49,8 +50,8 @@ import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RemindersScreen(app: MoneyTrackApp) {
-    var tab by remember { mutableIntStateOf(0) }
+fun RemindersScreen(app: MoneyTrackApp, initialTab: Int = 0) {
+    var tab by remember { mutableIntStateOf(initialTab) }
     var paying by remember { mutableStateOf<Reminder?>(null) }
     var payingDebt by remember { mutableStateOf<Reminder?>(null) }
     var adding by remember { mutableStateOf(false) }
@@ -205,6 +206,7 @@ private fun PayDebtForm(app: MoneyTrackApp, r: Reminder, onDone: () -> Unit) {
             label = { Text(stringResource(R.string.amount)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
+            visualTransformation = ThousandsVisualTransformation,
         )
         val amount = amountText.toLongOrNull() ?: 0L
         Button(
@@ -236,6 +238,7 @@ private fun AddReminderForm(app: MoneyTrackApp, defaultKind: ReminderKind, onDon
             amountText, { amountText = it.filter(Char::isDigit) },
             label = { Text(stringResource(R.string.amount)) },
             singleLine = true, modifier = Modifier.fillMaxWidth(),
+            visualTransformation = ThousandsVisualTransformation,
         )
         OutlinedTextField(
             dayText, { dayText = it.filter(Char::isDigit).take(2) },

@@ -132,6 +132,7 @@
 
     <string name="manage_wallets">Quản lý ví</string>
     <string name="manage_categories">Quản lý danh mục</string>
+    <string name="manage_debts">Quản lý nợ vay</string>
     <string name="wallet_edit">Sửa ví</string>
     <string name="category_edit">Sửa danh mục</string>
     <string name="wallet_delete_blocked">Không thể xóa ví đang có giao dịch (%1$d)</string>

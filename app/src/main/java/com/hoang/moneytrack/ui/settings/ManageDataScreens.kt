@@ -1,5 +1,6 @@
 package com.hoang.moneytrack.ui.settings
 
+import com.hoang.moneytrack.ui.common.ThousandsVisualTransformation
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -84,6 +85,7 @@ fun EditWalletForm(app: MoneyTrackApp, wallet: Wallet, onDone: () -> Unit) {
             balanceText, { balanceText = it.filter(Char::isDigit) },
             label = { Text(stringResource(R.string.wallet_initial_balance)) },
             singleLine = true, modifier = Modifier.fillMaxWidth(),
+            visualTransformation = ThousandsVisualTransformation,
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(

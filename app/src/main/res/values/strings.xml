@@ -142,6 +142,7 @@
 
     <string name="manage_wallets">Manage wallets</string>
     <string name="manage_categories">Manage categories</string>
+    <string name="manage_debts">Debts &amp; loans</string>
     <string name="wallet_edit">Edit wallet</string>
     <string name="category_edit">Edit category</string>
     <string name="wallet_delete_blocked">Can\'t delete a wallet with transactions (%1$d)</string>

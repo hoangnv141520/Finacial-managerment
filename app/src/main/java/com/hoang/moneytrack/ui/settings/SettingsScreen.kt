@@ -43,7 +43,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(app: MoneyTrackApp, onManageWallets: () -> Unit, onManageCategories: () -> Unit) {
+fun SettingsScreen(app: MoneyTrackApp, onManageWallets: () -> Unit, onManageCategories: () -> Unit, onManageDebts: () -> Unit) {
     val scope = rememberCoroutineScope()
     val theme by app.settings.theme.collectAsState(ThemeMode.SYSTEM)
     val secure by app.settings.secureScreen.collectAsState(true)
@@ -113,6 +113,7 @@ fun SettingsScreen(app: MoneyTrackApp, onManageWallets: () -> Unit, onManageCate
             Text("Dữ liệu", style = MaterialTheme.typography.titleSmall)
             SettingRow(stringResource(R.string.manage_wallets), onManageWallets)
             SettingRow(stringResource(R.string.manage_categories), onManageCategories)
+            SettingRow(stringResource(R.string.manage_debts), onManageDebts)
         }
 
         AccountSection(app)

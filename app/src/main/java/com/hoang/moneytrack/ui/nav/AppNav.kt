@@ -61,6 +61,7 @@ object Routes {
     const val SETTINGS = "settings"
     const val MANAGE_WALLETS = "manage_wallets"
     const val MANAGE_CATEGORIES = "manage_categories"
+    const val MANAGE_DEBTS = "manage_debts"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -144,7 +145,8 @@ fun AppNav(app: MoneyTrackApp) {
                     SettingsScreen(
                         app, 
                         onManageWallets = { nav.navigate(Routes.MANAGE_WALLETS) }, 
-                        onManageCategories = { nav.navigate(Routes.MANAGE_CATEGORIES) }
+                        onManageCategories = { nav.navigate(Routes.MANAGE_CATEGORIES) },
+                        onManageDebts = { nav.navigate(Routes.MANAGE_DEBTS) },
                     ) 
                 }
             }
@@ -153,6 +155,9 @@ fun AppNav(app: MoneyTrackApp) {
             }
             composable(Routes.MANAGE_CATEGORIES) {
                 SubScreen(stringResource(R.string.manage_categories), nav) { ManageCategoriesScreen(app) }
+            }
+            composable(Routes.MANAGE_DEBTS) {
+                SubScreen(stringResource(R.string.manage_debts), nav) { RemindersScreen(app, initialTab = 1) }
             }
         }
     }

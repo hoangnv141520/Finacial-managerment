@@ -1,5 +1,6 @@
 package com.hoang.moneytrack.ui.budget
 
+import com.hoang.moneytrack.ui.common.ThousandsVisualTransformation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -90,7 +91,7 @@ fun BudgetScreen(app: MoneyTrackApp) {
             }
         }
 
-        items(budgets.size, key = { budgets[it].id }) { i ->
+        items(budgets.size, key = { "b${budgets[it].id}" }) { i ->
             val b = budgets[i]
             Column {
                 Row {
@@ -113,7 +114,7 @@ fun BudgetScreen(app: MoneyTrackApp) {
         }
 
         item { Text(stringResource(R.string.budget_goals), style = MaterialTheme.typography.titleMedium) }
-        items(goals.size, key = { goals[it].id }) { i ->
+        items(goals.size, key = { "g${goals[it].id}" }) { i ->
             val g = goals[i]
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
                 Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -179,6 +180,7 @@ private fun CreateBudgetForm(app: MoneyTrackApp, month: YearMonth, onDone: () ->
             label = { Text(stringResource(R.string.budget_limit)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
+            visualTransformation = ThousandsVisualTransformation,
         )
         val limit = limitText.toLongOrNull() ?: 0L
         Button(
@@ -211,6 +213,7 @@ private fun CreateGoalForm(app: MoneyTrackApp, onDone: () -> Unit) {
             label = { Text(stringResource(R.string.budget_target)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
+            visualTransformation = ThousandsVisualTransformation,
         )
         val target = targetText.toLongOrNull() ?: 0L
         Button(
@@ -243,6 +246,7 @@ private fun DepositForm(app: MoneyTrackApp, goal: SavingGoal, onDone: () -> Unit
             label = { Text(stringResource(R.string.amount)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
+            visualTransformation = ThousandsVisualTransformation,
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             items(wallets.size, key = { wallets[it].id }) { i ->

@@ -1,5 +1,6 @@
 package com.hoang.moneytrack.ui.investment
 
+import com.hoang.moneytrack.ui.common.ThousandsVisualTransformation
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -160,8 +161,8 @@ private fun HoldingForm(app: MoneyTrackApp, existing: Holding?, assetType: Asset
         Text(existing?.symbol ?: stringResource(R.string.invest_add), style = MaterialTheme.typography.titleMedium)
         OutlinedTextField(symbol, { symbol = it }, label = { Text("Symbol") }, singleLine = true, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(qty, { qty = it }, label = { Text(stringResource(R.string.invest_qty)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(cost, { cost = it.filter(Char::isDigit) }, label = { Text(stringResource(R.string.invest_cost)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(price, { price = it.filter(Char::isDigit) }, label = { Text(stringResource(R.string.invest_price)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
+        OutlinedTextField(cost, { cost = it.filter(Char::isDigit) }, label = { Text(stringResource(R.string.invest_cost)) }, singleLine = true, modifier = Modifier.fillMaxWidth(), visualTransformation = ThousandsVisualTransformation)
+        OutlinedTextField(price, { price = it.filter(Char::isDigit) }, label = { Text(stringResource(R.string.invest_price)) }, singleLine = true, modifier = Modifier.fillMaxWidth(), visualTransformation = ThousandsVisualTransformation)
 
         val valid = symbol.isNotBlank() && qty.toDoubleOrNull() != null && cost.toLongOrNull() != null && price.toLongOrNull() != null
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

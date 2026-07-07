@@ -50,6 +50,7 @@ fun AddWalletForm(app: MoneyTrackApp, onDone: () -> Unit) {
             balanceText, { balanceText = it.filter(Char::isDigit) },
             label = { Text(stringResource(R.string.wallet_initial_balance)) },
             singleLine = true, modifier = Modifier.fillMaxWidth(),
+            visualTransformation = ThousandsVisualTransformation,
         )
         Button(
             onClick = {
