@@ -129,6 +129,24 @@
     <string name="wallet_initial_balance">Initial balance</string>
     <string name="category_add">New category</string>
 
+    <string name="acc_section">Account &amp; Sync</string>
+    <string name="acc_email">Email</string>
+    <string name="acc_password">Password</string>
+    <string name="acc_server">Server URL</string>
+    <string name="acc_login">Log in</string>
+    <string name="acc_register">Register</string>
+    <string name="acc_logout">Log out</string>
+    <string name="acc_sync_now">Sync now</string>
+    <string name="acc_synced">Synced ✓</string>
+    <string name="acc_error">Error: %1$s</string>
+
+    <string name="manage_wallets">Manage wallets</string>
+    <string name="manage_categories">Manage categories</string>
+    <string name="wallet_edit">Edit wallet</string>
+    <string name="category_edit">Edit category</string>
+    <string name="wallet_delete_blocked">Can\'t delete a wallet with transactions (%1$d)</string>
+    <string name="category_delete_blocked">Can\'t delete a category with transactions (%1$d)</string>
+
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="amount">Amount</string>

@@ -119,6 +119,24 @@
     <string name="wallet_initial_balance">Số dư ban đầu</string>
     <string name="category_add">Thêm danh mục</string>
 
+    <string name="acc_section">Tài khoản &amp; Đồng bộ</string>
+    <string name="acc_email">Email</string>
+    <string name="acc_password">Mật khẩu</string>
+    <string name="acc_server">Địa chỉ server</string>
+    <string name="acc_login">Đăng nhập</string>
+    <string name="acc_register">Đăng ký</string>
+    <string name="acc_logout">Đăng xuất</string>
+    <string name="acc_sync_now">Đồng bộ ngay</string>
+    <string name="acc_synced">Đã đồng bộ ✓</string>
+    <string name="acc_error">Lỗi: %1$s</string>
+
+    <string name="manage_wallets">Quản lý ví</string>
+    <string name="manage_categories">Quản lý danh mục</string>
+    <string name="wallet_edit">Sửa ví</string>
+    <string name="category_edit">Sửa danh mục</string>
+    <string name="wallet_delete_blocked">Không thể xóa ví đang có giao dịch (%1$d)</string>
+    <string name="category_delete_blocked">Không thể xóa danh mục đang có giao dịch (%1$d)</string>
+
     <string name="cancel">Hủy</string>
     <string name="ok">OK</string>
     <string name="amount">Số tiền</string>

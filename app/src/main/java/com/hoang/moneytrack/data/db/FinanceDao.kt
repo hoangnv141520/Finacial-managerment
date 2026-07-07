@@ -45,6 +45,10 @@ interface FinanceDao {
 
     @Insert suspend fun insertWallet(w: Wallet): Long
     @Update suspend fun updateWallet(w: Wallet)
+    @Delete suspend fun deleteWallet(w: Wallet)
+
+    @Query("SELECT COUNT(*) FROM txn WHERE walletId = :id OR toWalletId = :id")
+    suspend fun countTxnsForWallet(id: Long): Int
 
     @Query("UPDATE Wallet SET balance = balance + :delta WHERE id = :id")
     suspend fun adjustBalance(id: Long, delta: Long)
@@ -54,6 +58,11 @@ interface FinanceDao {
     fun categories(): Flow<List<Category>>
 
     @Insert suspend fun insertCategory(c: Category): Long
+    @Update suspend fun updateCategory(c: Category)
+    @Delete suspend fun deleteCategory(c: Category)
+
+    @Query("SELECT COUNT(*) FROM txn WHERE categoryId = :id")
+    suspend fun countTxnsForCategory(id: Long): Int
 
     // --- transactions ---
     @Insert suspend fun insertTxn(t: Txn): Long
@@ -166,4 +175,24 @@ interface FinanceDao {
 
     // --- seed check ---
     @Query("SELECT COUNT(*) FROM Wallet") suspend fun walletCount(): Int
+
+    // --- sync: full-table reads (used by SyncManager.export) ---
+    @Query("SELECT * FROM Wallet") suspend fun allWallets(): List<Wallet>
+    @Query("SELECT * FROM Category") suspend fun allCategories(): List<Category>
+    @Query("SELECT * FROM txn") suspend fun allTxns(): List<Txn>
+    @Query("SELECT * FROM Recurring") suspend fun allRecurrings(): List<Recurring>
+    @Query("SELECT * FROM Budget") suspend fun allBudgets(): List<Budget>
+    @Query("SELECT * FROM SavingGoal") suspend fun allGoals(): List<SavingGoal>
+    @Query("SELECT * FROM Reminder") suspend fun allReminders(): List<Reminder>
+    @Query("SELECT * FROM Holding") suspend fun allHoldings(): List<Holding>
+
+    // --- sync: full-table clears (used by SyncManager.import) ---
+    @Query("DELETE FROM Wallet") suspend fun clearWallets()
+    @Query("DELETE FROM Category") suspend fun clearCategories()
+    @Query("DELETE FROM txn") suspend fun clearTxns()
+    @Query("DELETE FROM Recurring") suspend fun clearRecurrings()
+    @Query("DELETE FROM Budget") suspend fun clearBudgets()
+    @Query("DELETE FROM SavingGoal") suspend fun clearGoals()
+    @Query("DELETE FROM Reminder") suspend fun clearReminders()
+    @Query("DELETE FROM Holding") suspend fun clearHoldings()
 }

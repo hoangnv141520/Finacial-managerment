@@ -13,7 +13,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Switch
@@ -28,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import com.hoang.moneytrack.MoneyTrackApp
@@ -39,7 +43,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(app: MoneyTrackApp) {
+fun SettingsScreen(app: MoneyTrackApp, onManageWallets: () -> Unit, onManageCategories: () -> Unit) {
     val scope = rememberCoroutineScope()
     val theme by app.settings.theme.collectAsState(ThemeMode.SYSTEM)
     val secure by app.settings.secureScreen.collectAsState(true)
@@ -103,6 +107,15 @@ fun SettingsScreen(app: MoneyTrackApp) {
             ToggleRow(stringResource(R.string.set_block_screenshot), secure) { scope.launch { app.settings.setSecureScreen(it) } }
             ToggleRow(stringResource(R.string.set_hide_balance), hideBalance) { scope.launch { app.settings.setHideBalance(it) } }
         }
+
+        // data management
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text("Dữ liệu", style = MaterialTheme.typography.titleSmall)
+            SettingRow(stringResource(R.string.manage_wallets), onManageWallets)
+            SettingRow(stringResource(R.string.manage_categories), onManageCategories)
+        }
+
+        AccountSection(app)
     }
 
     if (settingPin) ModalBottomSheet(onDismissRequest = { settingPin = false }) {
@@ -118,6 +131,13 @@ private fun ToggleRow(label: String, checked: Boolean, onChange: (Boolean) -> Un
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Text(label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
         Switch(checked, onChange)
+    }
+}
+
+@Composable
+private fun SettingRow(label: String, onClick: () -> Unit) {
+    Row(Modifier.fillMaxWidth().clickable(onClick = onClick).padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
     }
 }
 
@@ -162,5 +182,70 @@ private fun SetPinFlow(app: MoneyTrackApp, onDone: (Boolean) -> Unit) {
             onDelete = { pin = pin.dropLast(1) },
         )
         Spacer(Modifier.height(16.dp))
+    }
+}
+
+
+@Composable
+private fun AccountSection(app: MoneyTrackApp) {
+    val scope = rememberCoroutineScope()
+    var loggedIn by remember { mutableStateOf(app.keys.isLoggedIn) }
+    var email by remember { mutableStateOf(app.keys.accountEmail ?: "") }
+    var password by remember { mutableStateOf("") }
+    var server by remember { mutableStateOf(app.keys.serverUrl) }
+    var status by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val okMsg = stringResource(R.string.acc_synced)
+
+    fun run(block: suspend () -> Result<Unit>) {
+        busy = true
+        scope.launch {
+            status = block().fold({ okMsg }, { it.message?.take(120) ?: "?" })
+            loggedIn = app.keys.isLoggedIn
+            busy = false
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.acc_section), style = MaterialTheme.typography.titleSmall)
+        if (!loggedIn) {
+            OutlinedTextField(server, { server = it; app.keys.setServerUrl(it) },
+                label = { Text(stringResource(R.string.acc_server)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(email, { email = it },
+                label = { Text(stringResource(R.string.acc_email)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(password, { password = it },
+                label = { Text(stringResource(R.string.acc_password)) }, singleLine = true,
+                visualTransformation = PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth())
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(
+                    onClick = { run { app.sync.auth(register = false, email = email.trim(), password = password) } },
+                    enabled = !busy && email.isNotBlank() && password.isNotBlank(),
+                    modifier = Modifier.weight(1f),
+                ) { Text(stringResource(R.string.acc_login)) }
+                OutlinedButton(
+                    onClick = { run { app.sync.auth(register = true, email = email.trim(), password = password) } },
+                    enabled = !busy && email.isNotBlank() && password.isNotBlank(),
+                    modifier = Modifier.weight(1f),
+                ) { Text(stringResource(R.string.acc_register)) }
+            }
+        } else {
+            Text(email, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(
+                    onClick = { run { app.sync.syncNow() } },
+                    enabled = !busy,
+                    modifier = Modifier.weight(1f),
+                ) { Text(stringResource(R.string.acc_sync_now)) }
+                OutlinedButton(
+                    onClick = { app.keys.clearAccount(); loggedIn = false; status = null },
+                    enabled = !busy,
+                    modifier = Modifier.weight(1f),
+                ) { Text(stringResource(R.string.acc_logout)) }
+            }
+        }
+        status?.let {
+            Text(it, style = MaterialTheme.typography.bodySmall,
+                color = if (it == okMsg) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error)
+        }
     }
 }

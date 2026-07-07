@@ -4,14 +4,36 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import java.time.LocalDate
 
-enum class WalletType { CASH, BANK, EWALLET }
-enum class TxnType { INCOME, EXPENSE, TRANSFER }
-enum class RecurUnit { MONTHLY, WEEKLY }
-enum class ReminderKind { BILL, DEBT_LEND, DEBT_BORROW }
-enum class AssetType { STOCK, GOLD, CRYPTO, SAVINGS }
+// --- LocalDate serializer (epoch-day Long) ---
+object LocalDateSerializer : KSerializer<LocalDate> {
+    override val descriptor = PrimitiveSerialDescriptor("LocalDate", PrimitiveKind.LONG)
+    override fun serialize(encoder: Encoder, value: LocalDate) = encoder.encodeLong(value.toEpochDay())
+    override fun deserialize(decoder: Decoder): LocalDate = LocalDate.ofEpochDay(decoder.decodeLong())
+}
 
+object LocalDateNullableSerializer : KSerializer<LocalDate?> {
+    override val descriptor = PrimitiveSerialDescriptor("LocalDateNullable", PrimitiveKind.LONG)
+    override fun serialize(encoder: Encoder, value: LocalDate?) =
+        if (value == null) encoder.encodeLong(-1L) else encoder.encodeLong(value.toEpochDay())
+    override fun deserialize(decoder: Decoder): LocalDate? =
+        decoder.decodeLong().let { if (it == -1L) null else LocalDate.ofEpochDay(it) }
+}
+
+@Serializable enum class WalletType { CASH, BANK, EWALLET }
+@Serializable enum class TxnType { INCOME, EXPENSE, TRANSFER }
+@Serializable enum class RecurUnit { MONTHLY, WEEKLY }
+@Serializable enum class ReminderKind { BILL, DEBT_LEND, DEBT_BORROW }
+@Serializable enum class AssetType { STOCK, GOLD, CRYPTO, SAVINGS }
+
+@Serializable
 @Entity
 data class Wallet(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -22,6 +44,7 @@ data class Wallet(
     val sortOrder: Int,
 )
 
+@Serializable
 @Entity
 data class Category(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -30,6 +53,7 @@ data class Category(
     val type: TxnType,
 )
 
+@Serializable
 @Entity(
     tableName = "txn",
     indices = [Index("date"), Index("categoryId"), Index("walletId")],
@@ -42,10 +66,11 @@ data class Txn(
     val walletId: Long,
     val toWalletId: Long? = null, // TRANSFER only
     val note: String = "",
-    val date: LocalDate,
+    @Serializable(with = LocalDateSerializer::class) val date: LocalDate,
     val recurringId: Long? = null,
 )
 
+@Serializable
 @Entity
 data class Recurring(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -56,10 +81,11 @@ data class Recurring(
     val note: String,
     val unit: RecurUnit,
     val dayOfUnit: Int, // MONTHLY: 1..28, WEEKLY: 1..7 (ISO)
-    val nextDate: LocalDate,
+    @Serializable(with = LocalDateSerializer::class) val nextDate: LocalDate,
     val active: Boolean = true,
 )
 
+@Serializable
 @Entity(indices = [Index("month")])
 data class Budget(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -68,27 +94,30 @@ data class Budget(
     val limitAmount: Long,
 )
 
+@Serializable
 @Entity
 data class SavingGoal(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val targetAmount: Long,
     val savedAmount: Long = 0,
-    val deadline: LocalDate? = null,
+    @Serializable(with = LocalDateNullableSerializer::class) val deadline: LocalDate? = null,
 )
 
+@Serializable
 @Entity(indices = [Index("dueDate")])
 data class Reminder(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val kind: ReminderKind,
     val title: String,
     val amount: Long,
-    val dueDate: LocalDate,
+    @Serializable(with = LocalDateSerializer::class) val dueDate: LocalDate,
     val paid: Boolean = false,
     val paidAmount: Long = 0, // debt installment progress
     val recurDayOfMonth: Int? = null, // recurring bill: day of month
 )
 
+@Serializable
 @Entity
 data class Holding(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,

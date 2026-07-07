@@ -47,6 +47,8 @@ import com.hoang.moneytrack.ui.quickadd.QuickAddSheet
 import com.hoang.moneytrack.ui.reminders.RemindersScreen
 import com.hoang.moneytrack.ui.reports.ReportsScreen
 import com.hoang.moneytrack.ui.settings.SettingsScreen
+import com.hoang.moneytrack.ui.settings.ManageWalletsScreen
+import com.hoang.moneytrack.ui.settings.ManageCategoriesScreen
 import com.hoang.moneytrack.ui.transactions.TransactionsScreen
 
 object Routes {
@@ -57,6 +59,8 @@ object Routes {
     const val REMINDERS = "reminders"
     const val REPORTS = "reports"
     const val SETTINGS = "settings"
+    const val MANAGE_WALLETS = "manage_wallets"
+    const val MANAGE_CATEGORIES = "manage_categories"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -136,7 +140,19 @@ fun AppNav(app: MoneyTrackApp) {
                 SubScreen(stringResource(R.string.nav_reports), nav) { ReportsScreen(app) }
             }
             composable(Routes.SETTINGS) {
-                SubScreen(stringResource(R.string.nav_settings), nav) { SettingsScreen(app) }
+                SubScreen(stringResource(R.string.nav_settings), nav) { 
+                    SettingsScreen(
+                        app, 
+                        onManageWallets = { nav.navigate(Routes.MANAGE_WALLETS) }, 
+                        onManageCategories = { nav.navigate(Routes.MANAGE_CATEGORIES) }
+                    ) 
+                }
+            }
+            composable(Routes.MANAGE_WALLETS) {
+                SubScreen(stringResource(R.string.manage_wallets), nav) { ManageWalletsScreen(app) }
+            }
+            composable(Routes.MANAGE_CATEGORIES) {
+                SubScreen(stringResource(R.string.manage_categories), nav) { ManageCategoriesScreen(app) }
             }
         }
     }
